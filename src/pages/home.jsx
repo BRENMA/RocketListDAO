@@ -4,6 +4,11 @@ import { toast } from "react-toastify";
 
 const Home = () => {
     const address = useAddress();
+    const token = useToken("0x2b300dbe816B01Ce67CE65eb3bC607d6AF129017");
+
+    const shortenAddress = (str) => {
+        return str.substring(0, 6) + "..." + str.substring(str.length - 4);
+    };
 
     //Initialize our editionDrop contract
     const editionDrop = useEditionDrop("0xaF44EA1Ea7444DcF975815bBDe877E33cA0A4A6E");
@@ -84,6 +89,7 @@ const Home = () => {
             <div className="member-page">
                 <h1>DAO Member Page</h1>
                 <p>Congratulations on being a member</p>
+
             </div>
         );
     };

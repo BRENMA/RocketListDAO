@@ -5,7 +5,6 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Home from "./pages/home";
 
-
 const App = () => {
   return (
     <div>
