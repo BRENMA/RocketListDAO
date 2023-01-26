@@ -1,5 +1,6 @@
 import React from "react";
 import Sketch from "react-p5";
+import './landing.css'
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -12,7 +13,7 @@ const Landing = () => {
     let width = window.innerWidth
 
     function setup(p5, canvasParentRef) {
-        p5.createCanvas(window.innerWidth, window.innerHeight).parent(canvasParentRef);
+        p5.createCanvas(width, height).parent(canvasParentRef);
         
         // Add an initial set of boids into the system
         for (let i = 0; i < 100; i++) {
@@ -21,7 +22,8 @@ const Landing = () => {
     }
     
     function draw(p5) {
-        p5.background(51);
+        p5.background('white');
+
         // Run all the boids
         for (let i = 0; i < boids.length; i++) {
             boids[i].run(p5, boids);
@@ -93,9 +95,9 @@ const Landing = () => {
         
         // Draw boid as a circle
         render(p5) {
-            p5.fill(127, 0);
-            p5.stroke(600);
-            p5.ellipse(this.position.x, this.position.y, 16, 10);
+            p5.fill(255, 204, 0);
+            //p5.stroke(100);
+            p5.ellipse(this.position.x, this.position.y, 15, 15);
         }
         
         // Wraparound
@@ -188,9 +190,14 @@ const Landing = () => {
         }  
     }
 
+
     return (
         <div id="canvas">
-            <Sketch setup={setup} draw={draw} />
+            <div className="text">
+                <h1 className="title">rocketlistDAO</h1>
+                <p className="description">bringing liquidity to vc</p>
+            </div>
+            <Sketch className="canvas" setup={setup} draw={draw} />
         </div>
     )
 }

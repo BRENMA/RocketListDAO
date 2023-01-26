@@ -1,5 +1,22 @@
-body {
-    margin: 0;
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Unbounded&display=swap');
+
+html, body {
     padding: 0;
-    background-color: ivory;
+    margin: 0;
+    font-family: 'Roboto Mono', monospace;
+    font-family: 'Unbounded', cursive;
+    overflow: hidden
+}
+
+.text {
+    margin-left: 4vw;
+    position:absolute;
+}
+
+.title {
+    font-size: 5vw;
+}
+
+.description {
+    font-size: 2vw;
 }
