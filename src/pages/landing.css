@@ -11,12 +11,19 @@ html, body {
 .text {
     margin-left: 4vw;
     position:absolute;
+    text-shadow: 2px 2px #ff0000;
 }
 
 .title {
-    font-size: 5vw;
+    font-size: 6vw;
 }
 
 .description {
-    font-size: 2vw;
+    font-size: 3vw;
+}
+
+.menu {
+    position: absolute;
+    margin-top: 5vh;
+    margin-left: 75vw;
 }

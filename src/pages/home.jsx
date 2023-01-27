@@ -1,71 +1,71 @@
-//import { useAddress, useEditionDrop, useToken, useVote } from '@thirdweb-dev/react';
-//import { useState, useEffect, useMemo } from 'react';
+import { useAddress, useEditionDrop, useToken, useVote } from '@thirdweb-dev/react';
+import { useState, useEffect, useMemo } from 'react';
 //import { AddressZero } from "@ethersproject/constants";
-//import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const Home = () => {
-//    const address = useAddress();
-//    const token = useToken("0x8D85B81d1A586507D09d6ACc6A4A8ae98B0EBD6e");
-//    const vote = useVote("0x98970eD791b3283eaF176FAff3b1C5961281095E");
-//
-//    const shortenAddress = (str) => {
-//        return str.substring(0, 6) + "..." + str.substring(str.length - 4);
-//    };
-//
-//    const editionDrop = useEditionDrop("0xaF44EA1Ea7444DcF975815bBDe877E33cA0A4A6E");
-//    const [hasClaimedNFT, setHasClaimedNFT] = useState(false);
-//    const [isClaiming, setIsClaiming] = useState(false);
-//    const [isAccredited, setIsAccredited] = useState(false);
-//    const [memberTokenAmounts, setMemberTokenAmounts] = useState([]);
-//    const [memberAddresses, setMemberAddresses] = useState([]);
-//    const [proposals, setProposals] = useState([]);
-//    const [isVoting, setIsVoting] = useState(false);
-//    const [hasVoted, setHasVoted] = useState(false);
-//
-//    useEffect(() => {
-//        // If they don't have a connected wallet, exit!
-//        if (!address) {
-//            return;
-//        }
-//
-//        const checkBalance = async () => {
-//            try {
-//                const balance = await editionDrop.balanceOf(address, 0);
-//                if (balance.gt(0)) {
-//                    setHasClaimedNFT(true);
-//                    console.log("🌟 this user has a membership NFT!");
-//                } else {
-//                    setHasClaimedNFT(false);
-//                    console.log("😭 this user doesn't have a membership NFT.");
-//                }
-//            } catch (error) {
-//                setHasClaimedNFT(false);
-//                console.error("Failed to get balance", error);
-//            }
-//        };
-//        checkBalance();
-//    }, [address, editionDrop]);
-//
-//    
-//    // This useEffect grabs all the addresses of our members holding our NFT.
-//    useEffect(() => {
-//        if (!hasClaimedNFT) {
-//            return;
-//        }
-//    
-//        // Just like we did in the 7-airdrop-token.js file! Grab the users who hold our NFT
-//        // with tokenId 0.
-//        const getAllAddresses = async () => {
-//            try {
-//                const memberAddresses = await editionDrop.history.getAllClaimerAddresses(0);
-//                setMemberAddresses(memberAddresses);
-//                console.log("🚀 Members addresses", memberAddresses);
-//            } catch (error) {
-//                console.error("failed to get member list", error);
-//            }
-//        };
-//        getAllAddresses();
-//    }, [hasClaimedNFT, editionDrop.history]);
+    const address = useAddress();
+    const token = useToken("0x8D85B81d1A586507D09d6ACc6A4A8ae98B0EBD6e");
+    const vote = useVote("0x98970eD791b3283eaF176FAff3b1C5961281095E");
+
+    const shortenAddress = (str) => {
+        return str.substring(0, 6) + "..." + str.substring(str.length - 4);
+    };
+
+    const editionDrop = useEditionDrop("0xaF44EA1Ea7444DcF975815bBDe877E33cA0A4A6E");
+    const [hasClaimedNFT, setHasClaimedNFT] = useState(false);
+    const [isClaiming, setIsClaiming] = useState(false);
+    const [isAccredited, setIsAccredited] = useState(false);
+    const [memberTokenAmounts, setMemberTokenAmounts] = useState([]);
+    const [memberAddresses, setMemberAddresses] = useState([]);
+    //const [proposals, setProposals] = useState([]);
+    //const [isVoting, setIsVoting] = useState(false);
+    //const [hasVoted, setHasVoted] = useState(false);
+
+    useEffect(() => {
+        // If they don't have a connected wallet, exit!
+        if (!address) {
+            return;
+        }
+
+        const checkBalance = async () => {
+            try {
+                const balance = await editionDrop.balanceOf(address, 0);
+                if (balance.gt(0)) {
+                    setHasClaimedNFT(true);
+                    console.log("🌟 this user has a membership NFT!");
+                } else {
+                    setHasClaimedNFT(false);
+                    console.log("😭 this user doesn't have a membership NFT.");
+                }
+            } catch (error) {
+                setHasClaimedNFT(false);
+                console.error("Failed to get balance", error);
+            }
+        };
+        checkBalance();
+    }, [address, editionDrop]);
+
+    
+    // This useEffect grabs all the addresses of our members holding our NFT.
+    //useEffect(() => {
+    //    if (!hasClaimedNFT) {
+    //        return;
+    //    }
+    //
+    //    // Just like we did in the 7-airdrop-token.js file! Grab the users who hold our NFT
+    //    // with tokenId 0.
+    //    const getAllAddresses = async () => {
+    //        try {
+    //            const memberAddresses = await editionDrop.history.getAllClaimerAddresses(0);
+    //            setMemberAddresses(memberAddresses);
+    //            console.log("🚀 Members addresses", memberAddresses);
+    //        } catch (error) {
+    //            console.error("failed to get member list", error);
+    //        }
+    //    };
+    //    getAllAddresses();
+    //}, [hasClaimedNFT, editionDrop.history]);
 //    
 //    // This useEffect grabs the # of token each member holds.
 //    useEffect(() => {
@@ -148,37 +148,37 @@ const Home = () => {
 //        });
 //    }, [memberAddresses, memberTokenAmounts]);
 //
-//    const onValueChange = (e) => {    
-//        if(e.target.value === "Yes") {
-//            setIsAccredited(true)
-//        } else {
-//            setIsAccredited(false)
-//        }
-//    }
-//
-//    const formSubmit = (e) => {
-//        e.preventDefault();
-//
-//        if (!isAccredited) {
-//            toast.error("You need to be an accredited investor to join RocketListDAO")
-//        } else {
-//            mintNft();
-//        }
-//    }
-//
-//    const mintNft = async () => {
-//        try {
-//            setIsClaiming(true);
-//            await editionDrop.claim("0", 1);
-//            console.log(`🌊 Successfully Minted! Check it out on OpenSea: https://testnets.opensea.io/assets/${editionDrop.getAddress()}/0`);
-//            setHasClaimedNFT(true);
-//        } catch (error) {
-//            setHasClaimedNFT(false);
-//            console.error("Failed to mint NFT", error);
-//        } finally {
-//            setIsClaiming(false);
-//        }
-//    };
+    const onValueChange = (e) => {    
+        if(e.target.value === "Yes") {
+            setIsAccredited(true)
+        } else {
+            setIsAccredited(false)
+        }
+    }
+
+    const formSubmit = (e) => {
+        e.preventDefault();
+    
+        if (!isAccredited) {
+            toast.error("You need to be an accredited investor to join RocketListDAO")
+        } else {
+            mintNft();
+        }
+    }
+
+    const mintNft = async () => {
+        try {
+            setIsClaiming(true);
+            await editionDrop.claim("0", 1);
+            console.log(`🌊 Successfully Minted! Check it out on OpenSea: https://testnets.opensea.io/assets/${editionDrop.getAddress()}/0`);
+            setHasClaimedNFT(true);
+        } catch (error) {
+            setHasClaimedNFT(false);
+            console.error("Failed to mint NFT", error);
+        } finally {
+            setIsClaiming(false);
+        }
+    };
 //
 //    if (!address) {
 //        return (
@@ -346,34 +346,34 @@ const Home = () => {
 //        );
 //    };
 //
-//    return (
-//        <div className="mint-nft">
-//            <h1>Mint your free RocketListDAO Membership NFT</h1>
-//            <p>Are you an accredited investor?</p>
-//            
-//            <form onSubmit={formSubmit}>
-//                <div className="radio">
-//                    <label>
-//                    <input type="radio" value="Yes" checked={isAccredited} onChange={onValueChange} />
-//                        Yes
-//                    </label>
-//                </div>
-//
-//                <div className="radio">
-//                    <label>
-//                    <input type="radio" value="No" checked={!isAccredited} onChange={onValueChange} />
-//                        No
-//                    </label>
-//                </div>
-//
-//                <p>Not sure? <a target="_blank" rel="noopener noreferrer" href='https://www.investor.gov/introduction-investing/investing-basics/glossary/accredited-investors'>This SEC site has the full definition</a></p>
-//
-//                <button type='submit' disabled={isClaiming} >
-//                    {isClaiming ? "Minting..." : "Mint your NFT"}
-//                </button>
-//            </form>
-//        </div>
-//    );
+    return (
+        <div className="mint-nft">
+            <h1>Mint your free RocketListDAO Membership NFT</h1>
+            <p>Are you an accredited investor?</p>
+            
+            <form onSubmit={formSubmit}>
+                <div className="radio">
+                    <label>
+                    <input type="radio" value="Yes" checked={isAccredited} onChange={onValueChange} />
+                        Yes
+                    </label>
+                </div>
+
+                <div className="radio">
+                    <label>
+                    <input type="radio" value="No" checked={!isAccredited} onChange={onValueChange} />
+                        No
+                    </label>
+                </div>
+
+                <p>Not sure? <a target="_blank" rel="noopener noreferrer" href='https://www.investor.gov/introduction-investing/investing-basics/glossary/accredited-investors'>click here</a></p>
+
+                <button type='submit' disabled={isClaiming} >
+                    {isClaiming ? "Minting..." : "Mint your NFT"}
+                </button>
+            </form>
+        </div>
+    );
 }
 
 export default Home;

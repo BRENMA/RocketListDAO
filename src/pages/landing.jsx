@@ -1,5 +1,6 @@
 import React from "react";
 import Sketch from "react-p5";
+import { Link } from 'react-router-dom';
 import './landing.css'
 
 function getRandomInt(max) {
@@ -38,7 +39,7 @@ const Landing = () => {
             this.velocity = p5.constructor.Vector.random2D();
             this.position = p5.createVector(x, y);
             this.r = 3.0;
-            this.maxspeed = 2;    // Maximum speed
+            this.maxspeed = 1;    // Maximum speed
             this.maxforce = 0.05; // Maximum steering force
         }
         
@@ -196,6 +197,11 @@ const Landing = () => {
             <div className="text">
                 <h1 className="title">rocketlistDAO</h1>
                 <p className="description">bringing liquidity to vc</p>
+            </div>
+
+            <div className="menu">
+                <Link className="button-74" to="/about">about</Link>
+                <Link className="button-74" to="/app">app</Link>
             </div>
             <Sketch className="canvas" setup={setup} draw={draw} />
         </div>
