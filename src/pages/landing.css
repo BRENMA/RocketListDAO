@@ -1,25 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Unbounded&display=swap');
-
-html, body {
-    padding: 0;
-    margin: 0;
-    font-family: 'Roboto Mono', monospace;
-    font-family: 'Unbounded', cursive;
-    overflow: hidden
-}
-
 .text {
+    color: whitesmoke;
     margin-left: 4vw;
     position:absolute;
-    text-shadow: 2px 2px #ff0000;
+    text-shadow: 3px 3px rgb(0, 0, 255);
 }
 
 .title {
-    font-size: 6vw;
+    font-size: 10vh;
 }
 
 .description {
-    font-size: 3vw;
+    font-size: 4vh;
 }
 
 .menu {

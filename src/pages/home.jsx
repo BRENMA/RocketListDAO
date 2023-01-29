@@ -1,18 +1,23 @@
-import { useAddress, useEditionDrop, useToken, useVote } from '@thirdweb-dev/react';
+import { useAddress, ConnectWallet, useContract, useNFTBalance } from '@thirdweb-dev/react';
 import { useState, useEffect, useMemo } from 'react';
 //import { AddressZero } from "@ethersproject/constants";
 import { toast } from "react-toastify";
+import './home.css'
 
 const Home = () => {
     const address = useAddress();
-    const token = useToken("0x8D85B81d1A586507D09d6ACc6A4A8ae98B0EBD6e");
-    const vote = useVote("0x98970eD791b3283eaF176FAff3b1C5961281095E");
+    const token = useToken("");
+    const vote = useVote("");
+    const editionDropAddress = "0x7aA9d078DD610cC9FF6e383612Af874f02E76f17"
 
     const shortenAddress = (str) => {
         return str.substring(0, 6) + "..." + str.substring(str.length - 4);
     };
-
+    
     const editionDrop = useEditionDrop("0xaF44EA1Ea7444DcF975815bBDe877E33cA0A4A6E");
+    const { contract: editionDrop } = useContract(editionDropAddress, "edition-drop");
+    const { data: nftBalance } = useNFTBalance(editionDrop, address, "0")
+
     const [hasClaimedNFT, setHasClaimedNFT] = useState(false);
     const [isClaiming, setIsClaiming] = useState(false);
     const [isAccredited, setIsAccredited] = useState(false);
@@ -27,7 +32,7 @@ const Home = () => {
         if (!address) {
             return;
         }
-
+        
         const checkBalance = async () => {
             try {
                 const balance = await editionDrop.balanceOf(address, 0);
@@ -43,7 +48,7 @@ const Home = () => {
                 console.error("Failed to get balance", error);
             }
         };
-        checkBalance();
+            checkBalance();
     }, [address, editionDrop]);
 
     
@@ -160,7 +165,7 @@ const Home = () => {
         e.preventDefault();
     
         if (!isAccredited) {
-            toast.error("You need to be an accredited investor to join RocketListDAO")
+            toast.error("You need to be an accredited investor to join")
         } else {
             mintNft();
         }
@@ -179,7 +184,7 @@ const Home = () => {
             setIsClaiming(false);
         }
     };
-//
+
 //    if (!address) {
 //        return (
 //            <div className="landing">
@@ -348,8 +353,8 @@ const Home = () => {
 //
     return (
         <div className="mint-nft">
-            <h1>Mint your free RocketListDAO Membership NFT</h1>
-            <p>Are you an accredited investor?</p>
+            <h1 className='description'>Mint your free RocketListDAO Membership NFT</h1>
+            <p className='innerText'>Are you an accredited investor?</p>
             
             <form onSubmit={formSubmit}>
                 <div className="radio">
@@ -358,7 +363,7 @@ const Home = () => {
                         Yes
                     </label>
                 </div>
-
+                <br />
                 <div className="radio">
                     <label>
                     <input type="radio" value="No" checked={!isAccredited} onChange={onValueChange} />
@@ -366,9 +371,9 @@ const Home = () => {
                     </label>
                 </div>
 
-                <p>Not sure? <a target="_blank" rel="noopener noreferrer" href='https://www.investor.gov/introduction-investing/investing-basics/glossary/accredited-investors'>click here</a></p>
+                <p className='innerText' >Not sure? <a target="_blank" rel="noopener noreferrer" href='https://www.investor.gov/introduction-investing/investing-basics/glossary/accredited-investors'>click here</a></p>
 
-                <button type='submit' disabled={isClaiming} >
+                <button className='button-1' type='submit' disabled={isClaiming} >
                     {isClaiming ? "Minting..." : "Mint your NFT"}
                 </button>
             </form>

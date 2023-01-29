@@ -6,12 +6,12 @@ const WalletBtn = () => {
     const disconnect = useDisconnect();
 
     return (
-        <div>
-        {address ? (
-            <button onClick={disconnect}>disconnect {address.substring(0, 6) + "..." + address.substring(address.length - 4)}</button>
-        ) : (
-            <button onClick={connectWithMetamask}>Connect Metamask Wallet</button>
-        )}
+        <div className='walletConnect'>
+            {address ? (
+                <button className='button-1' onClick={disconnect}>disconnect {address.substring(0, 6) + "..." + address.substring(address.length - 4)}</button>
+            ) : (
+                <button className='button-1' onClick={connectWithMetamask}>Connect Metamask Wallet</button>
+            )}
         </div>
     );
 }

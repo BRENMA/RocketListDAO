@@ -17,13 +17,13 @@ const Landing = () => {
         p5.createCanvas(width, height).parent(canvasParentRef);
         
         // Add an initial set of boids into the system
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 200; i++) {
             boids[i] = new Boid(getRandomInt(width), getRandomInt(height), p5);
         }
     }
     
     function draw(p5) {
-        p5.background('white');
+        p5.background('black');
 
         // Run all the boids
         for (let i = 0; i < boids.length; i++) {
@@ -39,7 +39,7 @@ const Landing = () => {
             this.velocity = p5.constructor.Vector.random2D();
             this.position = p5.createVector(x, y);
             this.r = 3.0;
-            this.maxspeed = 1;    // Maximum speed
+            this.maxspeed = 1.5;    // Maximum speed
             this.maxforce = 0.05; // Maximum steering force
         }
         
@@ -96,9 +96,9 @@ const Landing = () => {
         
         // Draw boid as a circle
         render(p5) {
-            p5.fill(255, 204, 0);
-            //p5.stroke(100);
-            p5.ellipse(this.position.x, this.position.y, 15, 15);
+            p5.fill(0, 0, 255);
+            p5.stroke(100);
+            p5.ellipse(this.position.x, this.position.y, 10, 15);
         }
         
         // Wraparound
@@ -195,7 +195,7 @@ const Landing = () => {
     return (
         <div id="canvas">
             <div className="text">
-                <h1 className="title">rocketlistDAO</h1>
+                <h1 className="title">rocketlistdao</h1>
                 <p className="description">bringing liquidity to vc</p>
             </div>
 
