@@ -1,5 +1,6 @@
-import { useAddress, ConnectWallet, useContract, useNFTBalance, Web3Button } from '@thirdweb-dev/react';
+import { useAddress, useContract, useNFTBalance, Web3Button } from '@thirdweb-dev/react';
 import { useState, useEffect, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 //import { AddressZero } from "@ethersproject/constants";
 import { toast } from "react-toastify";
 import './home.css'
@@ -150,7 +151,9 @@ const Home = () => {
         return (
             <div className="mint-nft">
                 <h1>DAO Member Page</h1>
-                <button>create a new investment dao</button>
+                <Link className="button-74" to="/app/create">create a new investment dao</Link>
+
+                <p>RocketListDAO is currently in closed alpha and should be used at your own risk. We take security seriously and our contracts have been thoroughly tested and formally verified but are pending audit and bugs may still exist. No materials on the Syndicate site should be construed as a solicitation or advice to buy any security.</p>
             </div>
         )
         //return (

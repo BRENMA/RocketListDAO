@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Landing from './pages/landing';
 import Dao from './pages/dao';
+import CreateDao from './pages/createDao';
 
 const App = () => {
   return (
@@ -15,6 +16,9 @@ const App = () => {
         </Routes>
         <Routes>
           <Route path="/app" element = {<Dao />} />
+        </Routes>
+        <Routes>
+          <Route path="/app/create" element = {<CreateDao />} />
         </Routes>
         <Routes>
           <Route path="/about" element = {<Dao />} />

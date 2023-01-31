@@ -191,7 +191,6 @@ const Landing = () => {
         }  
     }
 
-
     return (
         <div id="canvas">
             <div className="text">
