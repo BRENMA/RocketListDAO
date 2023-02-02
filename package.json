@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@thirdweb-dev/react": "^3.7.1",
-    "ethers": "^5.7.2",
+    "@ethersproject/constants": "^5.7.0",
+    "@thirdweb-dev/react": "^3.7.2",
+    "@thirdweb-dev/sdk": "^3.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-p5": "^1.3.33",

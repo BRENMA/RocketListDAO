@@ -1,12 +1,14 @@
-import AragonCreate from "./aragonCreate";
+import StepsToCreate from "./stepsToCreate";
 import WalletBtn from "../components/walletButton";
+import LaunchDaoHeader from '../components/launchDaoHeader';
+
 
 const CreateDao = () => {
     return (
         <div className="daoPage">
             <WalletBtn />
-            <br />
-            <AragonCreate />
+            <LaunchDaoHeader />
+            <StepsToCreate />
         </div>
     )
 }

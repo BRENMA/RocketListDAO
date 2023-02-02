@@ -116,3 +116,14 @@ html, body {
 .radio {
     font-size: x-large; 
 }
+
+.mainContainer {
+    position: relative;
+    text-align: center;
+    margin-top: 30vh;
+    margin-bottom: 5vh;
+}
+
+.description {
+    font-size: 4vh;
+}

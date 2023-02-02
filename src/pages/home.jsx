@@ -1,9 +1,7 @@
 import { useAddress, useContract, useNFTBalance, Web3Button } from '@thirdweb-dev/react';
 import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-//import { AddressZero } from "@ethersproject/constants";
 import { toast } from "react-toastify";
-import './home.css'
 
 const Home = () => {
     const address = useAddress();
@@ -140,7 +138,7 @@ const Home = () => {
 
     if (!address) {
         return (
-            <div className="mint-nft">
+            <div className="mainContainer">
                 <h1 className='description'>Welcome to RocketListDAO</h1>
                 <p className='innerText'>Connect your wallet to continue</p>
             </div>
@@ -149,7 +147,7 @@ const Home = () => {
 
     if (hasClaimedNFT) {
         return (
-            <div className="mint-nft">
+            <div className="mainContainer">
                 <h1>DAO Member Page</h1>
                 <Link className="button-74" to="/app/create">create a new investment dao</Link>
 
@@ -313,7 +311,7 @@ const Home = () => {
     };
 
     return (
-        <div className="mint-nft">
+        <div className="mainContainer">
             <h1 className='description'>Mint your free RocketListDAO Membership NFT</h1>
             <p className='innerText'>Are you an accredited investor?</p>
             

@@ -1,0 +1,24 @@
+.step {
+    text-align: center;
+    overflow-y: scroll;
+    height: 70vh;
+    padding-bottom: 5vh;
+}
+
+.mediumTextInput {
+    height: 10vh;
+    width: 25vw;
+    overflow-wrap: break-word;
+}
+
+.mediumTextInput {
+    height: 10vh;
+    width: 35vw;
+    overflow-wrap: break-word;
+}
+
+.largeTextInput {
+    height: 40vh;
+    width: 60vw;
+    overflow-wrap: break-word;
+}
