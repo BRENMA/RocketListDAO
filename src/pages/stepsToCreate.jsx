@@ -9,7 +9,7 @@ const StepsToCreate = () => {
     const address = useAddress();
     const signer = useSigner();
     const thirdweb = new ThirdwebSDK(signer);
-    const [stage, setStage] = useState("step2");
+    const [stage, setStage] = useState("step1");
 
     const [company, setCompany] = useState('');
     const [round, setRound] = useState('');
@@ -46,14 +46,18 @@ const StepsToCreate = () => {
             console.log(deployedAddress);
         }
         main()
+        .then(() => {
+            setStage("stage4")
+        })
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
-        toast("submitted")
-        console.log(deck)
-        console.log(memo)
+        if (stage === 'step1') {
+            setStage('step2')
+        } else if (stage === 'step2') {
+            setStage('step3')
+        }
     }
  
     const onSameTermValueChange = (e) => {    
@@ -113,7 +117,7 @@ const StepsToCreate = () => {
         setDeck(file)
     }
 
-    if (stage == 'step1') {
+    if (stage === 'step1') {
         return (
             <div className='step'>
                 <form onSubmit={handleSubmit}>
@@ -228,7 +232,7 @@ const StepsToCreate = () => {
         )
     }
 
-    if (stage == 'step2') {
+    if (stage === 'step2') {
         return (
             <div className='step'>
                 <form onSubmit={handleSubmit}>
@@ -246,11 +250,11 @@ const StepsToCreate = () => {
         )
     }
 
-    if (stage == 'step3') {
+    if (stage === 'step3') {
         return (
             <div className='step'>
-                <h1>step 2</h1>
-                <button onClick={tokenWrapper}>deploy token contract</button>
+                <h1><u>step 3</u></h1>
+                <button className='button-1' onClick={tokenWrapper}>deploy token contract</button>
             </div>
         )
     }
