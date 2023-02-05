@@ -35,15 +35,21 @@ const StepsToCreate = () => {
     const [deck, setDeck] = useState('');
     const [memo, setMemo] = useState('');
 
+    const [deployedAddress, setDeployedAddress] = useState('');
+    const [voteAddress, setVoteAddress] = useState('');
+
+
     const tokenWrapper = (e) => {
         e.preventDefault();
 
         async function main() {
-            const deployedAddress = await thirdweb.deployer.deployToken({
-                name: "My Token",
+            const deployedAddressInit = await thirdweb.deployer.deployToken({
+                name: "RocketListDAO SubDAO Governance Token:" + company,
+                description: "",
                 primary_sale_recipient: address,
             });
-            console.log(deployedAddress);
+            console.log(deployedAddressInit);
+            setDeployedAddress(deployedAddressInit);
         }
         main()
         .then(() => {
@@ -51,8 +57,35 @@ const StepsToCreate = () => {
         })
     }
 
+    const voteWrapper = (e) => {
+        e.preventDefault();
+
+        async function main() {
+            const voteAddressInit = await thirdweb.deployer.deployVote({
+                name: "RocketListDAO SubDAO Voting Contract:" + company,
+                voting_token_address: deployedAddress,
+                voting_quorum_fraction: 4,
+                voting_delay_in_blocks: 6575,
+                voting_period_in_blocks: 32875,
+                proposal_token_threshold: 1,
+            });
+            console.log(voteAddressInit);
+            setVoteAddress(voteAddressInit)
+        }
+        main()
+        .then(() => {
+            setStage("stage5")
+        })
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
+
+        if (iInvestedInAPreviousRound === false && iHaveAdvisorySharesWarrantsOrOtherShares === false && iAmAnOfficerOrEmployeeOfTheCompany === false && iHaveARelativeOrSignificantOtherWorkingAtTheCompany === false && iHaveOtherPotentialConflictsToDisclose === false && iDoNotHaveAnyPotentialConflictsToDisclose === false) {
+            toast.error('At least one disclosure option must be selected')
+            return
+        }
+        
         if (stage === 'step1') {
             setStage('step2')
         } else if (stage === 'step2') {
@@ -222,7 +255,7 @@ const StepsToCreate = () => {
 
                         <label style={{'display': otherDisclosure}}>
                             <p>Other Disclosures</p>
-                            <textarea className='mediumTextInput' required={iDoNotHaveAnyPotentialConflictsToDisclose} placeholder="Other Disclosures" value={diffDisclosure} onChange={e => setDiffDisclosure(e.target.value)}/>
+                            <textarea className='mediumTextInput' required={iHaveOtherPotentialConflictsToDisclose} placeholder="Other Disclosures" value={diffDisclosure} onChange={e => setDiffDisclosure(e.target.value)}/>
                         </label>
                     </fieldset>
                     <br />
@@ -255,6 +288,24 @@ const StepsToCreate = () => {
             <div className='step'>
                 <h1><u>step 3</u></h1>
                 <button className='button-1' onClick={tokenWrapper}>deploy token contract</button>
+            </div>
+        )
+    }
+
+    if (stage === 'step4') {
+        return (
+            <div className='step'>
+                <h1><u>step 4</u></h1>
+                <button className='button-1' onClick={voteWrapper}>deploy token contract</button>
+            </div>
+        )
+    }
+
+    if (stage === 'step5') {
+        return (
+            <div className='step'>
+                <h1><u>step 5</u></h1>
+                <h1>remove permissions</h1>
             </div>
         )
     }
