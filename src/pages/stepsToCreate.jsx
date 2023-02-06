@@ -9,7 +9,7 @@ const StepsToCreate = () => {
     const address = useAddress();
     const signer = useSigner();
     const thirdweb = new ThirdwebSDK(signer);
-    const [stage, setStage] = useState("step1");
+    const [stage, setStage] = useState("step5");
 
     const [company, setCompany] = useState('');
     const [round, setRound] = useState('');
@@ -43,10 +43,10 @@ const StepsToCreate = () => {
         e.preventDefault();
 
         async function main() {
-            const deployedAddressInit = await thirdweb.deployer.deployToken({
+            const deployedAddressInit = await thirdweb.deployer.deployTokenDrop({
                 name: "RocketListDAO SubDAO Governance Token:" + company,
                 description: "",
-                primary_sale_recipient: address,
+                primary_sale_recipient: AddressZero,
             });
             console.log(deployedAddressInit);
             setDeployedAddress(deployedAddressInit);
@@ -75,6 +75,42 @@ const StepsToCreate = () => {
         main()
         .then(() => {
             setStage("stage5")
+        })
+    }
+
+    const FinalizePermissions = (e) => {
+        e.preventDefault();
+        const { contract } = useContract(deployedAddress);
+        const { mutateAsync: setPrimarySaleRecipient } = useContractWrite(contract, "setPrimarySaleRecipient")
+
+        const claimConditions = [{
+            startTime: new Date(),
+            currencyAddress: "0xe6b8a5cf854791412c1f6efc7caf629f5df1c747",
+            price: 1,
+            maxQuantity: allocation, 
+        }]
+
+        async function setSales() {
+            const data = await setPrimarySaleRecipient([ voteAddress ]);
+            console.info("contract call successs", data);
+        }
+
+        async function mintTokens() {
+            const tokenDrop = await thirdweb.getContract(deployedAddress, "token-drop");
+            await tokenDrop.claimConditions.set(claimConditions);
+        }
+
+        //async function main() {
+        //    const contract = await thirdweb.getContract(deployedAddress, "token");
+        //    contract.sales.setRecipient(voteAddress)
+        //}
+
+        setSales()
+        .then(() => {
+            mintTokens()
+            .then(() => {
+
+            })
         })
     }
 
@@ -305,7 +341,13 @@ const StepsToCreate = () => {
         return (
             <div className='step'>
                 <h1><u>step 5</u></h1>
-                <h1>remove permissions</h1>
+                <h1>Set sale of governance token to treasury</h1>
+                <h1>Mint governance tokens</h1>
+                <h1>Receive allocation</h1>
+                <h1>RocketListDAO allocation</h1>
+                <h1>Remove permissions</h1>
+                <button className='button-1' onClick={FinalizePermissions}>finalize</button>
+
             </div>
         )
     }
