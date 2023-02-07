@@ -1,7 +1,7 @@
-import React, { memo, useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
 import { AddressZero } from "@ethersproject/constants";
-import { useAddress, useContract, useNFTBalance, Web3Button, useSDK, useSigner } from '@thirdweb-dev/react';
+import { useAddress, useSigner } from '@thirdweb-dev/react';
 import'./stepsToCreate.css'
 import { toast } from 'react-toastify';
   
@@ -13,11 +13,11 @@ const StepsToCreate = () => {
 
     const [company, setCompany] = useState('');
     const [round, setRound] = useState('');
-    const [roundSize, setRoundSize] = useState('');
+    const [roundSize, setRoundSize] = useState();
     const [instrument, setInstrument] = useState('');
-    const [allocation, setAllocation] = useState('');
+    const [allocation, setAllocation] = useState();
     const [coInvestors, setCoInvestors] = useState('');
-    const [gpCommitment, setGpCommitment] = useState('');
+    const [gpCommitment, setGpCommitment] = useState();
 
     const [sameTerms, setSameTerms] = useState(true);
     const [otherTerms, setOtherTerms] = useState('none');
@@ -78,39 +78,42 @@ const StepsToCreate = () => {
         })
     }
 
-    const FinalizePermissions = (e) => {
+    const finalizePermissions = (e) => {
         e.preventDefault();
-        const { contract } = useContract(deployedAddress);
-        const { mutateAsync: setPrimarySaleRecipient } = useContractWrite(contract, "setPrimarySaleRecipient")
 
-        const claimConditions = [{
-            startTime: new Date(),
-            currencyAddress: "0xe6b8a5cf854791412c1f6efc7caf629f5df1c747",
-            price: 1,
-            maxQuantity: allocation, 
-        }]
+        const claimConditions = [
+            {
+                startTime: new Date(),
+                currencyAddress: "0xe6b8a5cf854791412c1f6efc7caf629f5df1c747",
+                price: 1,
+                maxQuantity: allocation, 
+            },
+            {
+                startTime: new Date(),
+                currencyAddress: "0xe6b8a5cf854791412c1f6efc7caf629f5df1c747",
+                price: 0,
+                maxQuantity: (allocation * 0.15),
+                snapshot: [address]
+            },
+            {
+                startTime: new Date(),
+                currencyAddress: "0xe6b8a5cf854791412c1f6efc7caf629f5df1c747",
+                price: 0,
+                maxQuantity: (allocation * 0.05),
+                snapshot: ['0xAa438FbbA05a9F8F3a432e49b258f53e19900cdE']
+            }
+        ]
 
-        async function setSales() {
-            const data = await setPrimarySaleRecipient([ voteAddress ]);
-            console.info("contract call successs", data);
-        }
-
-        async function mintTokens() {
+        async function setFive() {
             const tokenDrop = await thirdweb.getContract(deployedAddress, "token-drop");
+            await tokenDrop.sales.setRecipient(voteAddress)
             await tokenDrop.claimConditions.set(claimConditions);
+            await tokenDrop.roles.setAll({ admin: [] })
         }
 
-        //async function main() {
-        //    const contract = await thirdweb.getContract(deployedAddress, "token");
-        //    contract.sales.setRecipient(voteAddress)
-        //}
-
-        setSales()
+        setFive()
         .then(() => {
-            mintTokens()
-            .then(() => {
-
-            })
+            toast("Success!")
         })
     }
 
@@ -342,12 +345,9 @@ const StepsToCreate = () => {
             <div className='step'>
                 <h1><u>step 5</u></h1>
                 <h1>Set sale of governance token to treasury</h1>
-                <h1>Mint governance tokens</h1>
-                <h1>Receive allocation</h1>
-                <h1>RocketListDAO allocation</h1>
+                <h1>Set claim conditions</h1>
                 <h1>Remove permissions</h1>
-                <button className='button-1' onClick={FinalizePermissions}>finalize</button>
-
+                <button className='button-1' onClick={finalizePermissions}>finalize</button>
             </div>
         )
     }
